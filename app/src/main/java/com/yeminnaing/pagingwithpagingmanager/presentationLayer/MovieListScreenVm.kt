@@ -6,16 +6,16 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yeminnaing.pagingwithpagingmanager.dataLayer.pagingManager.PagingManager
+import com.yeminnaing.pagingwithpagingmanager.dataLayer.repositories.GetMovieRepoKtor
 import com.yeminnaing.pagingwithpagingmanager.domainLayer.Resources
 import com.yeminnaing.pagingwithpagingmanager.domainLayer.models.ResultModel
-import com.yeminnaing.pagingwithpagingmanager.domainLayer.usecases.GetMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieListScreenVm @Inject constructor(
-    private val getMovieUseCase: GetMovieUseCase
+    private val getMovieRepo:GetMovieRepoKtor
 ) : ViewModel() {
 
     var state by mutableStateOf(ScreenState())
@@ -26,7 +26,7 @@ class MovieListScreenVm @Inject constructor(
             state = state.copy(isLoading = it)
         },
         onRequest = { nextPage ->
-            return@PagingManager when (val response = getMovieUseCase.invoke(nextPage)) {
+            return@PagingManager when (val response = getMovieRepo.getMovie(nextPage)) {
                 is Resources.Error -> {
                     Resources.Error(error= response.error)
                 }

@@ -47,6 +47,8 @@ android {
     }
     packaging {
         resources {
+            excludes += "META-INF/INDEX.LIST"
+            excludes +="META-INF/io.netty.versions.properties"
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
@@ -91,4 +93,12 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
+    //Ktor
+    implementation("io.ktor:ktor-server-netty:2.3.12")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.12")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.12")
+    implementation("io.ktor:ktor-client-logging:2.3.12")
+    implementation("io.ktor:ktor-client-okhttp:2.3.12")
+    implementation("io.ktor:ktor-client-core:2.3.12")
 }
